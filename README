@@ -7,11 +7,11 @@ To run, type:
 
 Visit:
 
-  http://localhost:5000
+  http://localhost:8600
 
 Track a hit by opening another browser window and visiting:
 
-    http://localhost:5000/stat?lat=0.00,lon=0.00&title=Bacon
+    http://localhost:8600/stat?lat=0.00,lon=0.00&title=Bacon
 
 An icon will appear on the original map at latitude 0, longitude 0, with the title "Bacon".
 
