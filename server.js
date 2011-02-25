@@ -6,14 +6,9 @@ process.addListener('uncaughtException', function (err, stack) {
   console.log(err.stack);
   console.log('------------------------');
 });
-/*
+
 var NodeMap = require('./lib/nodemap');
 
 new NodeMap({
-  port: 8600,
-  geoipServer: {
-      hostname: 'geoip.pachube.com'
-    , port: 80
-  }
+  port: 8600
 });
-*/
