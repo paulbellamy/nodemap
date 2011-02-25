@@ -73,6 +73,7 @@ function NodeMapClient() {
         longitude = message.longitude,
         title = message.title || '',
         subtitle = message.subtitle || '',
+        isNew = message.isNew || false,
         x, y;
 
     var mapCoords = this.geoCoordsToMapCoords(latitude, longitude);
@@ -80,7 +81,6 @@ function NodeMapClient() {
     y = mapCoords.y;
 
     var indicator = self.map.circle(x, y, 6);
-
     indicator.attr({
       fill: 'r#fff-#fff',
       opacity: 0,
@@ -94,6 +94,7 @@ function NodeMapClient() {
       "font-family": "'Helvetica Neue', 'Helvetica', sans-serif",
       'font-weight': 'bold'
     });
+
     var subtitle = self.map.text(x, y + 21, subtitle);
     subtitle.attr({
       fill: '#999',
@@ -101,23 +102,43 @@ function NodeMapClient() {
       "font-family": "'Helvetica Neue', 'Helvetica', sans-serif"
     });
 
-    var hoverFunc = function () {
-      indicator.animate({scale: '1, 1'}, 200);
-      $(title.node).fadeIn(200);
-      $(subtitle.node).fadeIn(200);
+    var hoverFunc = function (callback) {
+      var time = 200;
+      indicator.animate({scale: '1, 1'}, time);
+      $(title.node).fadeIn(time);
+      $(subtitle.node).fadeIn(time);
+      setTimeout(callback, time);
     };
-    var hideFunc = function () {
-      indicator.animate({scale: '0.5, 0.5'}, 600);
-      $(title.node).fadeOut(600);
-      $(subtitle.node).fadeOut(600);
+    var hideFunc = function (callback) {
+      var time = 600;
+      indicator.animate({scale: '0.5, 0.5'}, time);
+      $(title.node).fadeOut(time);
+      $(subtitle.node).fadeOut(time);
+      setTimeout(callback, time);
     };
     $(indicator.node).hover(hoverFunc, hideFunc);
+    // Wait 20 seconds
+    // Then fade out and remove everything
+    setTimeout(function() {
+      $(indicator.node).animate({opacity: 0}, 600);
+      hideFunc(function() {
+        $(indicator.node).remove();
+        $(title.node).remove();
+        $(subtitle.node).remove();
+      });
+    }, 20000);
 
-    indicator.animate({scale: '0.5, 0.5'}, 2000, 'elastic', function () {
-      $(title.node).fadeOut(2000);
-      $(subtitle.node).fadeOut(2000);
-      //indicator.animate({'fill-opacity': 0}, 10000);
-    });
+    if (isNew == true) {
+      var time = 2000;
+      indicator.animate({scale: '0.5, 0.5'}, time, 'elastic', function () {
+        $(title.node).fadeOut(time);
+        $(subtitle.node).fadeOut(time);
+      });
+    } else {
+      indicator.attr({scale: '0.5,0.5'});
+      $(title.node).fadeOut(0);
+      $(subtitle.node).fadeOut(0);
+    }
   }
   
   this.init();
