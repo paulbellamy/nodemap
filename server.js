@@ -9,6 +9,13 @@ process.addListener('uncaughtException', function (err, stack) {
 
 var NodeMap = require('./lib/nodemap');
 
-new NodeMap({
-  port: 8600
-});
+new NodeMap({ port: 8600
+            , amqp: { host: '127.0.0.1'
+                    , port: 5672
+                    , vhost: '/'
+                    , login: 'guest'
+                    , password: 'guest'
+                    , ssl: false
+                    , exchange: 'datastream_updates'
+                    }
+            });
