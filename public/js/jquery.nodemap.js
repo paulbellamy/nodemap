@@ -15,7 +15,7 @@ function NodeMapClient() {
     self.socket = new io.Socket('nodemap.appdev.loc');
     self.socket.connect();
     self.socket.on('message', function(message) {
-      console.log("MESSAGE", message); // Logging for debugging
+      //console.log("MESSAGE", message); // Logging for debugging
       self.drawMarker(message);
     });
   };
@@ -79,12 +79,11 @@ function NodeMapClient() {
     x = mapCoords.x;
     y = mapCoords.y;
 
-    var person = self.map.path(personPath);
-    person.scale(0.01, 0.01);
-    person.translate(-255, -255); // Reset location to 0,0
-    person.translate(x, y);
-    person.attr({
-      fill: '#ff9',
+    var indicator = self.map.circle(x, y, 6);
+
+    indicator.attr({
+      fill: 'r#fff-#fff',
+      opacity: 0,
       stroke: 'transparent'
     });
 
@@ -103,26 +102,21 @@ function NodeMapClient() {
     });
 
     var hoverFunc = function () {
-      person.attr({
-        fill: 'white'
-      });
-      $(title.node).fadeIn('fast');
-      $(subtitle.node).fadeIn('fast');
+      indicator.animate({scale: '1, 1'}, 200);
+      $(title.node).fadeIn(200);
+      $(subtitle.node).fadeIn(200);
     };
     var hideFunc = function () {
-      person.attr({
-        fill: '#ff9'
-      });
-      $(title.node).fadeOut('slow');
-      $(subtitle.node).fadeOut('slow');
+      indicator.animate({scale: '0.5, 0.5'}, 600);
+      $(title.node).fadeOut(600);
+      $(subtitle.node).fadeOut(600);
     };
-    $(person.node).hover(hoverFunc, hideFunc);
+    $(indicator.node).hover(hoverFunc, hideFunc);
 
-    person.animate({
-      scale: '0.02, 0.02'
-    }, 2000, 'elastic', function () {
-      $(title.node).fadeOut(5000);
-      $(subtitle.node).fadeOut(5000);
+    indicator.animate({scale: '0.5, 0.5'}, 2000, 'elastic', function () {
+      $(title.node).fadeOut(2000);
+      $(subtitle.node).fadeOut(2000);
+      //indicator.animate({'fill-opacity': 0}, 10000);
     });
   }
   
