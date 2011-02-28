@@ -117,7 +117,7 @@ function NodeMapClient() {
       setTimeout(callback, time);
     };
     $(indicator.node).hover(hoverFunc, hideFunc);
-    // Wait 20 seconds
+    // Wait 40 seconds
     // Then fade out and remove everything
     setTimeout(function() {
       $(indicator.node).animate({opacity: 0}, 600);
@@ -126,7 +126,7 @@ function NodeMapClient() {
         $(title.node).remove();
         $(subtitle.node).remove();
       });
-    }, 20000);
+    }, 40000);
 
     if (isNew == true) {
       var time = 2000;
