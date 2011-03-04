@@ -88,6 +88,7 @@ function NodeMapClient() {
     });
 
     var title = self.map.text(x, y + 11, title);
+    $(title.node).fadeOut(0);
     title.attr({
       fill: 'white',
       "font-size": 10,
@@ -96,6 +97,7 @@ function NodeMapClient() {
     });
 
     var subtitle = self.map.text(x, y + 21, subtitle);
+    $(subtitle.node).fadeOut(0);
     subtitle.attr({
       fill: '#999',
       "font-size": 7,
@@ -130,14 +132,9 @@ function NodeMapClient() {
 
     if (isNew == true) {
       var time = 2000;
-      indicator.animate({scale: '0.5, 0.5'}, time, 'elastic', function () {
-        $(title.node).fadeOut(time);
-        $(subtitle.node).fadeOut(time);
-      });
+      indicator.animate({scale: '0.5, 0.5'}, time, 'elastic');
     } else {
       indicator.attr({scale: '0.5,0.5'});
-      $(title.node).fadeOut(0);
-      $(subtitle.node).fadeOut(0);
     }
   }
   
