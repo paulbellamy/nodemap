@@ -1,4 +1,4 @@
-require.paths.unshift(__dirname + "/vendor");
+require.paths.unshift(__dirname + "/node_modules");
 
 process.addListener('uncaughtException', function (err, stack) {
   console.log('------------------------');

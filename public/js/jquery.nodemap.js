@@ -12,8 +12,7 @@ function NodeMapClient() {
   };
   
   this.setupSocketIO = function() {
-    self.socket = new io.Socket('nodemap.appdev.loc');
-    self.socket.connect();
+    self.socket = io.connect('/map'); // Use same host/port as website
     self.socket.on('message', function(message) {
       //console.log("MESSAGE", message); // Logging for debugging
       self.drawMarker(message);

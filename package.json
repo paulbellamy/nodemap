@@ -1,0 +1,8 @@
+{
+  "name":"nodemap",
+  "version":"0.0.1",
+  "dependencies":{
+    "amqp":"",
+    "socket.io":""
+  }
+}
